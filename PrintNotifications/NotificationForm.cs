@@ -34,6 +34,7 @@ using MatterHackers.Agg.UI;
 using MatterHackers.MatterControl.FieldValidation;
 using MatterHackers.MatterControl.VersionManagement;
 using MatterHackers.VectorMath;
+using MatterHackers.Localizations;
 
 namespace MatterHackers.MatterControl.Plugins.PrintNotifications
 {
@@ -104,9 +105,9 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             SetButtonAttributes();
             AnchorAll();
 
-            cancelButton = textImageButtonFactory.Generate("Cancel");
-            saveButton = textImageButtonFactory.Generate("Save");
-            doneButton = textImageButtonFactory.Generate("Done");
+            cancelButton = textImageButtonFactory.Generate("Cancel".Localize());
+            saveButton = textImageButtonFactory.Generate("Save".Localize());
+            doneButton = textImageButtonFactory.Generate("Done".Localize());
             doneButton.Visible = false;
 
             DoLayout();
@@ -148,9 +149,9 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             mainContainer.AnchorAll();
 
             FlowLayoutWidget labelContainer = new FlowLayoutWidget();
-            labelContainer.HAnchor = HAnchor.ParentLeftRight;            
+            labelContainer.HAnchor = HAnchor.ParentLeftRight;
 
-            TextWidget formLabel = new TextWidget("After a Print is Finished:", pointSize:16);
+            TextWidget formLabel = new TextWidget("After a Print is Finished:".Localize(), pointSize: 16);
             formLabel.TextColor = ActiveTheme.Instance.PrimaryTextColor;
             formLabel.VAnchor = VAnchor.ParentCenter;
             formLabel.Margin = new BorderDouble(10, 0,10, 12);
@@ -167,7 +168,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             messageContainer.BackgroundColor = ActiveTheme.Instance.SecondaryBackgroundColor;
             messageContainer.Padding = new BorderDouble(10);
             
-            submissionStatus = new TextWidget("Saving your settings...", pointSize: 13);
+            submissionStatus = new TextWidget("Saving your settings...".Localize(), pointSize: 13);
             submissionStatus.AutoExpandBoundsToText = true;
             submissionStatus.Margin = new BorderDouble(0, 5);
             submissionStatus.TextColor = ActiveTheme.Instance.PrimaryTextColor;
@@ -185,7 +186,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 smsLabelContainer.HAnchor |= Agg.UI.HAnchor.ParentLeft;
                 
                 //Add sms notification option
-                notifySendTextCheckbox = new CheckBox("Send an SMS notification");
+                notifySendTextCheckbox = new CheckBox("Send an SMS notification".Localize());
                 notifySendTextCheckbox.Margin = new BorderDouble(0);
                 notifySendTextCheckbox.VAnchor = Agg.UI.VAnchor.ParentBottom;
                 notifySendTextCheckbox.TextColor = ActiveTheme.Instance.PrimaryTextColor;
@@ -193,7 +194,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 notifySendTextCheckbox.Checked = (UserSettings.Instance.get("AfterPrintFinishedSendTextMessage") == "true");
                 notifySendTextCheckbox.CheckedStateChanged += new CheckBox.CheckedStateChangedEventHandler(OnSendTextChanged);
 
-                TextWidget experimentalLabel = new TextWidget("Experimental", pointSize:10);
+                TextWidget experimentalLabel = new TextWidget("Experimental".Localize(), pointSize: 10);
                 experimentalLabel.TextColor = ActiveTheme.Instance.SecondaryAccentColor;
                 experimentalLabel.VAnchor = Agg.UI.VAnchor.ParentBottom;
                 experimentalLabel.Margin = new BorderDouble(left:10);
@@ -202,13 +203,13 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 smsLabelContainer.AddChild(experimentalLabel);
 
                 formContainer.AddChild(smsLabelContainer);
-                formContainer.AddChild(LabelGenerator("Have MatterControl send you a text message after your print is finished", 9, 14));
+                formContainer.AddChild(LabelGenerator("Have MatterControl send you a text message after your print is finished".Localize(), 9, 14));
 
                 phoneNumberContainer = new FlowLayoutWidget(FlowDirection.TopToBottom);
                 phoneNumberContainer.HAnchor = Agg.UI.HAnchor.ParentLeftRight;
 
-                phoneNumberLabel = LabelGenerator("Your Phone Number*");
-                phoneNumberHelperLabel = LabelGenerator("A U.S. or Canadian mobile phone number", 9, 14);
+                phoneNumberLabel = LabelGenerator("Your Phone Number*".Localize());
+                phoneNumberHelperLabel = LabelGenerator("A U.S. or Canadian mobile phone number".Localize(), 9, 14);
                 
 
                 phoneNumberContainer.AddChild(phoneNumberLabel);
@@ -233,7 +234,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
 
             {
                 //Add email notification option
-                notifySendEmailCheckbox = new CheckBox("Send an email notification");
+                notifySendEmailCheckbox = new CheckBox("Send an email notification".Localize());
                 notifySendEmailCheckbox.Margin = new BorderDouble(0, 2, 0, 16);
                 notifySendEmailCheckbox.HAnchor = Agg.UI.HAnchor.ParentLeft;
                 notifySendEmailCheckbox.TextColor = ActiveTheme.Instance.PrimaryTextColor;
@@ -242,14 +243,14 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 notifySendEmailCheckbox.CheckedStateChanged += new CheckBox.CheckedStateChangedEventHandler(OnSendEmailChanged);
 
                 formContainer.AddChild(notifySendEmailCheckbox);
-                formContainer.AddChild(LabelGenerator("Have MatterControl send you an email message after your print is finished", 9, 14));
+                formContainer.AddChild(LabelGenerator("Have MatterControl send you an email message after your print is finished".Localize(), 9, 14));
 
                 emailAddressContainer = new FlowLayoutWidget(FlowDirection.TopToBottom);
                 emailAddressContainer.HAnchor = Agg.UI.HAnchor.ParentLeftRight;
 
-                emailAddressLabel = LabelGenerator("Your Email Address*");
+                emailAddressLabel = LabelGenerator("Your Email Address*".Localize());
 
-                emailAddressHelperLabel = LabelGenerator("A valid email address", 9, 14);
+                emailAddressHelperLabel = LabelGenerator("A valid email address".Localize(), 9, 14);
 
                 emailAddressContainer.AddChild(emailAddressLabel);
                 emailAddressContainer.AddChild(emailAddressHelperLabel);
@@ -271,7 +272,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 formContainer.AddChild(emailAddressContainer);
             }
 
-            notifyPlaySoundCheckbox = new CheckBox("Play a Sound");
+            notifyPlaySoundCheckbox = new CheckBox("Play a Sound".Localize());
             notifyPlaySoundCheckbox.Margin = new BorderDouble(0, 2, 0, 16);
             notifyPlaySoundCheckbox.HAnchor = Agg.UI.HAnchor.ParentLeft;
             notifyPlaySoundCheckbox.TextColor = ActiveTheme.Instance.PrimaryTextColor;
@@ -279,7 +280,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             notifyPlaySoundCheckbox.Cursor = Cursors.Hand;
 
             formContainer.AddChild(notifyPlaySoundCheckbox);
-            formContainer.AddChild(LabelGenerator("Play a sound after your print is finished", 9, 14));                            
+            formContainer.AddChild(LabelGenerator("Play a sound after your print is finished".Localize(), 9, 14));
 
             centerContainer.AddChild(formContainer);
 
