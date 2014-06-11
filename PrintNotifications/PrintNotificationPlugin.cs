@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Media;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-
+using System.Media;
 using MatterHackers.Agg.UI;
-using MatterHackers.MatterControl.PluginSystem;
-using MatterHackers.MatterControl.DataStorage;
-using MatterHackers.MatterControl;
-using MatterHackers.MatterControl.VersionManagement;
 using MatterHackers.MatterControl.ActionBar;
+using MatterHackers.MatterControl.DataStorage;
+using MatterHackers.MatterControl.PluginSystem;
+using MatterHackers.MatterControl.PrinterCommunication;
+using MatterHackers.MatterControl.VersionManagement;
 
 namespace MatterHackers.MatterControl.Plugins.PrintNotifications
 {
@@ -25,7 +21,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
         public override void Initialize(GuiWidget application)
         {
             mainApplication = application;
-            PrinterCommunication.Instance.PrintFinished.RegisterEvent(SendPrintFinishedNotification, ref unregisterEvents);
+            PrinterConnectionAndCommunication.Instance.PrintFinished.RegisterEvent(SendPrintFinishedNotification, ref unregisterEvents);
             PrintStatusRow.AddIconToPrintStatusRow += AddNotificationButton;
         }
 
