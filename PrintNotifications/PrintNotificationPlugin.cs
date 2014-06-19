@@ -29,8 +29,8 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
         {
             ImageButtonFactory imageButtonFactory = new ImageButtonFactory();
             imageButtonFactory.invertImageColor = false;
-            string notifyIconPath = Path.Combine("Icons", "PrintStatusControls", "notify.png");
-            string notifyHoverIconPath = Path.Combine("Icons", "PrintStatusControls", "notify-hover.png");
+            string notifyIconPath = Path.Combine("PrintStatusControls", "notify.png");
+            string notifyHoverIconPath = Path.Combine("PrintStatusControls", "notify-hover.png");
             Button notifyButton = imageButtonFactory.Generate(notifyIconPath, notifyHoverIconPath);
             notifyButton.Cursor = Cursors.Hand;
             notifyButton.Margin = new Agg.BorderDouble(top: 3);
