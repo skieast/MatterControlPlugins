@@ -23,7 +23,14 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             mainApplication = application;
             PrinterConnectionAndCommunication.Instance.PrintFinished.RegisterEvent(SendPrintFinishedNotification, ref unregisterEvents);
             PrintStatusRow.AddIconToPrintStatusRow += AddNotificationButton;
+
+			PrinterConfigurationWidget.openPrintNotificationFunction = OpenConfigurationWindow;
         }
+
+		void OpenConfigurationWindow (object state)
+		{
+			NotificationFormWindow.Open();
+		}
 
         private static void AddNotificationButton(GuiWidget iconContainer)
         {
