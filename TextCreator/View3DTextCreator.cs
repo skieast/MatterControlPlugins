@@ -166,7 +166,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             {
                 FlowLayoutWidget editToolBar = new FlowLayoutWidget();
 
-                processingProgressControl = new ProgressControl("Finding Parts:");
+                processingProgressControl = new ProgressControl("Finding Parts:", ActiveTheme.Instance.PrimaryTextColor, ActiveTheme.Instance.PrimaryAccentColor);
                 processingProgressControl.VAnchor = Agg.UI.VAnchor.ParentCenter;
                 editToolBar.AddChild(processingProgressControl);
                 editToolBar.VAnchor |= Agg.UI.VAnchor.ParentCenter;
