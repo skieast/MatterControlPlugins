@@ -113,7 +113,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
         }
 
         TypeFace boldTypeFace;
-        public View3DTextCreator(Vector3 viewerVolume, MeshViewerWidget.BedShape bedShape)
+        public View3DTextCreator(Vector3 viewerVolume, Vector2 bedCenter, MeshViewerWidget.BedShape bedShape)
         {
             string staticDataPath = DataStorage.ApplicationDataStorage.Instance.ApplicationStaticDataPath;
             string fontPath = Path.Combine(staticDataPath, "Fonts", "LiberationSans-Bold.svg");
@@ -131,7 +131,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             GuiWidget viewArea = new GuiWidget();
             viewArea.AnchorAll();
             {
-                meshViewerWidget = new MeshViewerWidget(viewerVolume, 1, bedShape);
+                meshViewerWidget = new MeshViewerWidget(viewerVolume, bedCenter, bedShape);
                 meshViewerWidget.AlwaysRenderBed = true;
                 meshViewerWidget.AnchorAll();
             }
