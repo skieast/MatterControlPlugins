@@ -887,8 +887,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
             saveAndExitButton.Click += (sender, e) =>
             {
-                MergeAndSavePartsToStl();                
-
+                MergeAndSavePartsToStl();
             };
         }
 
