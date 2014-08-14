@@ -610,6 +610,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     wordOptionContainer.AddChild(createUnderline);
                     createUnderline.CheckedStateChanged += (sender, e) =>
                     {
+                        int oldIndex = SelectedMeshIndex;
                         if (!createUnderline.Checked)
                         {
                             // we need to remove the underline
@@ -624,6 +625,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                             // we need to add the underline
                             CreateUnderline(Meshes, MeshTransforms, MeshPlatingData);
                         }
+                        SelectedMeshIndex = oldIndex;
                     };
 
                     expandWordOptions.CheckedStateChanged += (sender, e) =>
