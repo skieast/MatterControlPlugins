@@ -427,7 +427,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
         }
     }
 
-    public class NotificationFormWindow : SystemWindow, IReceiveRootedWeakEvent
+    public class NotificationFormWindow : SystemWindow
     {
         static NotificationFormWindow contactFormWindow;
         static bool contactFormIsOpen;
@@ -467,23 +467,25 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             MinimumSize = new Vector2(500, 550);
         }
 
+        event EventHandler unregisterEvents;
+        public override void OnClosed(EventArgs e)
+        {
+            if (unregisterEvents != null)
+            {
+                unregisterEvents(this, null);
+            }
+            base.OnClosed(e);
+        }
+
         private void AddHandlers()
         {
-            ActiveTheme.Instance.ThemeChanged.Register(this, "ThemeChanged");
+            ActiveTheme.Instance.ThemeChanged.RegisterEvent(ThemeChanged, ref unregisterEvents);
             contactFormWidget.Closed += (sender, e) => { Close(); };
         }
 
-        public void RootedEvent(string eventType, EventArgs e)
+        public void ThemeChanged(object sender, EventArgs e)
         {
-            switch (eventType)
-            {
-                case "ThemeChanged":
-                    this.Invalidate();
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-            }
+            this.Invalidate();
         }
     }
 }
