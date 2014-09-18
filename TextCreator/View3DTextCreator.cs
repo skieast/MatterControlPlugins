@@ -54,9 +54,9 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 {
     public class View3DTextCreator : PartPreview3DWidget
     {
-        Slider spacingScrollBar;
-        Slider sizeScrollBar;
-        Slider heightScrollBar;
+        SolidSlider spacingScrollBar;
+        SolidSlider sizeScrollBar;
+        SolidSlider heightScrollBar;
         
         CheckBox createUnderline;
 
@@ -574,7 +574,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     wordOptionContainer.Visible = false;
                     buttonRightPanel.AddChild(wordOptionContainer);
 
-                    spacingScrollBar = InseretUiForSlider(wordOptionContainer, "Spacing:", .5, 1);
+                    spacingScrollBar = InsertUiForSlider(wordOptionContainer, "Spacing:", .5, 1);
                     {
                         spacingScrollBar.ValueChanged += (sender, e) =>
                         {
@@ -583,7 +583,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                         };
                     }
 
-                    sizeScrollBar = InseretUiForSlider(wordOptionContainer, "Size:", .3, 2);
+                    sizeScrollBar = InsertUiForSlider(wordOptionContainer, "Size:", .3, 2);
                     {
                         sizeScrollBar.ValueChanged += (sender, e) =>
                         {
@@ -594,7 +594,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                         };
                     }
 
-                    heightScrollBar = InseretUiForSlider(wordOptionContainer, "Height:", .05, 1);
+                    heightScrollBar = InsertUiForSlider(wordOptionContainer, "Height:", .05, 1);
                     {
                         heightScrollBar.ValueChanged += (sender, e) =>
                         {
@@ -647,9 +647,9 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     letterOptionContainer.Visible = false;
                     buttonRightPanel.AddChild(letterOptionContainer);
 
-                    Slider sizeScrollBar = InseretUiForSlider(letterOptionContainer, "Size:");
-                    Slider heightScrollBar = InseretUiForSlider(letterOptionContainer, "Height:");
-                    Slider rotationScrollBar = InseretUiForSlider(letterOptionContainer, "Rotation:");
+                    SolidSlider sizeScrollBar = InsertUiForSlider(letterOptionContainer, "Size:");
+                    SolidSlider heightScrollBar = InsertUiForSlider(letterOptionContainer, "Height:");
+                    SolidSlider rotationScrollBar = InsertUiForSlider(letterOptionContainer, "Rotation:");
 
                     expandLetterOptions.CheckedStateChanged += (sender, e) =>
                     {
