@@ -3,6 +3,7 @@ using System.IO;
 using System.Media;
 using MatterHackers.Agg.UI;
 using MatterHackers.MatterControl.ActionBar;
+using MatterHackers.MatterControl.ConfigurationPage;
 using MatterHackers.MatterControl.DataStorage;
 using MatterHackers.MatterControl.PluginSystem;
 using MatterHackers.MatterControl.PrinterCommunication;
@@ -24,7 +25,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
             PrinterConnectionAndCommunication.Instance.PrintFinished.RegisterEvent(SendPrintFinishedNotification, ref unregisterEvents);
             PrintStatusRow.AddIconToPrintStatusRow += AddNotificationButton;
 
-			PrinterConfigurationWidget.openPrintNotificationFunction = OpenConfigurationWindow;
+            CloudSettingsWidget.openPrintNotificationFunction = OpenConfigurationWindow;
         }
 
 		void OpenConfigurationWindow (object state)
@@ -60,7 +61,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 }); 
             };
 
-            iconContainer.AddChild(notifyButton);
+            //iconContainer.AddChild(notifyButton);
         }
 
         public override string GetPluginInfoJSon()
