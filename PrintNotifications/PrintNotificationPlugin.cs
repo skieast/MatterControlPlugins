@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Media;
 using MatterHackers.Agg.UI;
 using MatterHackers.MatterControl.ActionBar;
 using MatterHackers.MatterControl.ConfigurationPage;
@@ -85,7 +84,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                     try
                     {
                         string notificationSound = Path.Combine(ApplicationDataStorage.Instance.ApplicationStaticDataPath, "Sounds", "timer-done.wav");
-                        (new SoundPlayer(notificationSound)).Play();
+						(new System.Media.SoundPlayer(notificationSound)).Play();
                     }
                     catch
                     {
