@@ -73,35 +73,51 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
         List<Mesh> asynchMeshesList = new List<Mesh>();
         List<ScaleRotateTranslate> asynchMeshTransforms = new List<ScaleRotateTranslate>();
-        List<PlatingMeshData> asynchPlatingDataList = new List<PlatingMeshData>();
+        List<PlatingMeshGroupData> asynchPlatingDataList = new List<PlatingMeshGroupData>();
 
-        List<PlatingMeshData> MeshPlatingData;
+        List<PlatingMeshGroupData> MeshPlatingData;
 
         public ScaleRotateTranslate SelectedMeshTransform
         {
-            get { return meshViewerWidget.SelectedMeshTransform; }
-            set { meshViewerWidget.SelectedMeshTransform = value; }
+            get { return meshViewerWidget.SelectedMeshGroupTransform; }
+            set { meshViewerWidget.SelectedMeshGroupTransform = value; }
         }
 
         public Mesh SelectedMesh
         {
-            get { return meshViewerWidget.SelectedMesh; }
+            get 
+            {
+                throw new NotImplementedException();
+                //return meshViewerWidget.SelectedMesh; 
+            }
         }
 
         public int SelectedMeshIndex
         {
-            get { return meshViewerWidget.SelectedMeshIndex; }
-            set { meshViewerWidget.SelectedMeshIndex = value; }
+            get 
+            {
+                throw new NotImplementedException();
+                //return meshViewerWidget.SelectedMeshIndex; 
+            }
+            set
+            {
+                throw new NotImplementedException();
+                //meshViewerWidget.SelectedMeshIndex = value; 
+            }
         }
 
         public List<Mesh> Meshes
         {
-            get { return meshViewerWidget.Meshes; }
+            get 
+            {
+                throw new NotImplementedException();
+                //return meshViewerWidget.Meshes; 
+            }
         }
 
         public List<ScaleRotateTranslate> MeshTransforms
         {
-            get { return meshViewerWidget.MeshTransforms; }
+            get { return meshViewerWidget.MeshGroupTransforms; }
         }
 
         internal struct MeshSelectInfo
@@ -119,7 +135,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             string fontPath = Path.Combine(staticDataPath, "Fonts", "LiberationSans-Bold.svg");
             boldTypeFace = TypeFace.LoadSVG(fontPath);
 
-            MeshPlatingData = new List<PlatingMeshData>();
+            MeshPlatingData = new List<PlatingMeshGroupData>();
 
             FlowLayoutWidget mainContainerTopToBottom = new FlowLayoutWidget(FlowDirection.TopToBottom);
             mainContainerTopToBottom.HAnchor = Agg.UI.HAnchor.Max_FitToChildren_ParentWidth;
@@ -270,6 +286,8 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
         private bool FindMeshHitPosition(Vector2 screenPosition, out int meshHitIndex)
         {
+                throw new NotImplementedException();
+#if false
             meshHitIndex = 0;
             if (MeshPlatingData.Count == 0 || MeshPlatingData[0].traceableData == null)
             {
@@ -303,6 +321,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             }
 
             return false;
+#endif
         }
 
         Matrix4X4 transformOnMouseDown = Matrix4X4.Identity;
@@ -400,15 +419,18 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                 {
                     asynchMeshesList.Add(textMesh);
 
-                    PlatingMeshData newMeshInfo = new PlatingMeshData();
+                    PlatingMeshGroupData newMeshInfo = new PlatingMeshGroupData();
 
                     newMeshInfo.xSpacing = printer.GetOffsetLeftOfCharacterIndex(i).x + centerOffset;
                     asynchPlatingDataList.Add(newMeshInfo);
                     asynchMeshTransforms.Add(ScaleRotateTranslate.Identity());
 
+                throw new NotImplementedException();
+#if false
                     PlatingHelper.CreateITraceableForMesh(asynchPlatingDataList, asynchMeshesList, newIndex);
 
-                    PlatingHelper.PlaceMeshOnBed(asynchMeshesList, asynchMeshTransforms, newIndex, false);
+                    PlatingHelper.PlaceMeshGroupOnBed(asynchMeshesList, asynchMeshTransforms, newIndex, false);
+#endif
                 }
 
                 backgroundWorker.ReportProgress((i + 1) * 95 / currentText.Length);
@@ -437,7 +459,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             SelectedMeshIndex = 0;
         }
 
-        private void CreateUnderline(List<Mesh> meshesList, List<ScaleRotateTranslate> meshTransforms, List<PlatingMeshData> platingDataList)
+        private void CreateUnderline(List<Mesh> meshesList, List<ScaleRotateTranslate> meshTransforms, List<PlatingMeshGroupData> platingDataList)
         {
             if (meshesList.Count > 0)
             {
@@ -452,14 +474,19 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                 double zSize = bounds.ZSize / 3;
                 Mesh connectionLine = PlatonicSolids.CreateCube(xSize, ySize, zSize);
                 meshesList.Add(connectionLine);
-                platingDataList.Add(new PlatingMeshData());
+                platingDataList.Add(new PlatingMeshGroupData());
                 meshTransforms.Add(ScaleRotateTranslate.CreateTranslation((bounds.maxXYZ.x + bounds.minXYZ.x) / 2, ySize / 2 - ySize * 2 / 3, zSize / 2));
+                throw new NotImplementedException();
+#if false
                 PlatingHelper.CreateITraceableForMesh(platingDataList, meshesList, meshesList.Count - 1);
+#endif
             }
         }
 
         private void PushMeshDataToAsynchLists(bool copyTraceInfo)
         {
+                throw new NotImplementedException();
+#if false
             asynchMeshesList.Clear();
             asynchMeshTransforms.Clear();
             for (int i = 0; i < Meshes.Count; i++)
@@ -471,7 +498,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             asynchPlatingDataList.Clear();
             for (int i = 0; i < MeshPlatingData.Count; i++)
             {
-                PlatingMeshData meshData = new PlatingMeshData();
+                PlatingMeshGroupData meshData = new PlatingMeshGroupData();
                 meshData.currentScale = MeshPlatingData[i].currentScale;
                 if (copyTraceInfo)
                 {
@@ -479,6 +506,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                 }
                 asynchPlatingDataList.Add(meshData);
             }
+#endif
         }
 
         void arrangePartsBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -504,7 +532,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                 MeshTransforms.Add(transform);
             }
             MeshPlatingData.Clear();
-            foreach (PlatingMeshData meshData in asynchPlatingDataList)
+            foreach (PlatingMeshGroupData meshData in asynchPlatingDataList)
             {
                 MeshPlatingData.Add(meshData);
             }
@@ -698,7 +726,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             }
         }
 
-        private void SetWordSpacing(List<Mesh> meshesList, List<ScaleRotateTranslate> meshTransforms, List<PlatingMeshData> platingDataList)
+        private void SetWordSpacing(List<Mesh> meshesList, List<ScaleRotateTranslate> meshTransforms, List<PlatingMeshGroupData> platingDataList)
         {
             if (meshesList.Count > 0)
             {
