@@ -879,7 +879,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     backgroundWorker.ReportProgress(nextPercent);
                 }
 
-                string fileName = string.Format("UserCreated_{0}.amf", Path.GetRandomFileName());
+                string fileName = "UserCreated_{0}".FormatWith(Path.ChangeExtension(Path.GetRandomFileName(), ".amf"));
                 string filePath = Path.Combine(ApplicationDataStorage.Instance.ApplicationLibraryDataPath, fileName);
                 throw new NotImplementedException();
                 //MeshFileIo.Save(asynchMeshesList, filePath);
