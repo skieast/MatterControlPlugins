@@ -879,11 +879,10 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     backgroundWorker.ReportProgress(nextPercent);
                 }
 
-                Mesh mergedMesh = PlatingHelper.DoMerge(asynchMeshesList, backgroundWorker, 40, 80, true);
-
-                string fileName = string.Format("UserCreated_{0}.stl", Path.GetRandomFileName());
+                string fileName = string.Format("UserCreated_{0}.amf", Path.GetRandomFileName());
                 string filePath = Path.Combine(ApplicationDataStorage.Instance.ApplicationLibraryDataPath, fileName);
-                StlProcessing.Save(mergedMesh, filePath);
+                throw new NotImplementedException();
+                //MeshFileIo.Save(asynchMeshesList, filePath);
 
                 e.Result = filePath;
             }
