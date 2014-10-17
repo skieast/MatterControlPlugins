@@ -889,9 +889,9 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     backgroundWorker.ReportProgress(nextPercent);
                 }
 
-                string fileName = "UserCreated_{0}".FormatWith(Path.ChangeExtension(Path.GetRandomFileName(), ".amf"));
+                string fileName = "UserCreated_{0}".FormatWith(Path.ChangeExtension(Path.GetRandomFileName(), ".stl"));
                 string filePath = Path.Combine(ApplicationDataStorage.Instance.ApplicationLibraryDataPath, fileName);
-                MeshFileIo.Save(asynchMeshGroups, filePath);
+                MeshFileIo.Save(asynchMeshGroups, filePath, new MeshOutputSettings(MeshOutputSettings.CsgOption.DoCsgMerge));
 
                 e.Result = filePath;
             }
