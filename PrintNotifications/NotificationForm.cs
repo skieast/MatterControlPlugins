@@ -118,7 +118,7 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
         {
             GuiWidget labelContainer = new GuiWidget();
             labelContainer.HAnchor = HAnchor.ParentLeftRight;
-            labelContainer.Height = height;
+			labelContainer.Height = height * TextWidget.GlobalPointSizeScaleRatio;
 
             TextWidget formLabel = new TextWidget(labelText, pointSize: fontSize);
             formLabel.TextColor = ActiveTheme.Instance.PrimaryTextColor;
