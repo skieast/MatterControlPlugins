@@ -898,11 +898,11 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             catch (System.UnauthorizedAccessException)
             {
                 //Do something special when unauthorized?
-                StyledMessageBox.ShowMessageBox("Oops! Unable to save changes.", "Unable to save");
+                StyledMessageBox.ShowMessageBox(null, "Oops! Unable to save changes.", "Unable to save");
             }
             catch
             {
-                StyledMessageBox.ShowMessageBox("Oops! Unable to save changes.", "Unable to save");
+                StyledMessageBox.ShowMessageBox(null, "Oops! Unable to save changes.", "Unable to save");
             }
         }
 
