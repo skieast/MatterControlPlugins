@@ -37,6 +37,7 @@ using System.Threading;
 
 using MatterHackers.Agg;
 using MatterHackers.Agg.Font;
+using MatterHackers.PolygonMesh.Processors;
 using MatterHackers.Agg.UI;
 using MatterHackers.MatterControl.DataStorage;
 using MatterHackers.MatterControl.PartPreviewWindow;
@@ -44,7 +45,7 @@ using MatterHackers.MatterControl.PrintLibrary;
 using MatterHackers.MatterControl.PrintQueue;
 using MatterHackers.MeshVisualizer;
 using MatterHackers.PolygonMesh;
-using MatterHackers.PolygonMesh.Processors;
+using MatterHackers.PolygonMesh.Csg;
 using MatterHackers.RayTracer;
 using MatterHackers.RayTracer.Traceable;
 using MatterHackers.RenderOpenGl;
@@ -889,9 +890,21 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     backgroundWorker.ReportProgress(nextPercent);
                 }
 
-                string fileName = "UserCreated_{0}".FormatWith(Path.ChangeExtension(Path.GetRandomFileName(), ".stl"));
+                string fileName = "TextCreator_{0}".FormatWith(Path.ChangeExtension(Path.GetRandomFileName(), ".amf"));
                 string filePath = Path.Combine(ApplicationDataStorage.Instance.ApplicationLibraryDataPath, fileName);
-                MeshFileIo.Save(asynchMeshGroups, filePath, new MeshOutputSettings(MeshOutputSettings.CsgOption.DoCsgMerge));
+
+                List<MeshGroup> mergResults = new List<MeshGroup>();
+                mergResults.Add(new MeshGroup());
+                mergResults[0].Meshes.Add(new Mesh());
+                foreach (MeshGroup meshGroup in asynchMeshGroups)
+                {
+                    foreach (Mesh mesh in meshGroup.Meshes)
+                    {
+                        mergResults[0].Meshes[0] = CsgOperations.PerformOperation(mergResults[0].Meshes[0], mesh, CsgNode.Union);
+                    }
+                }
+
+                MeshFileIo.Save(mergResults, filePath);
 
                 e.Result = filePath;
             }
