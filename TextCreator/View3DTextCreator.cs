@@ -836,7 +836,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
         private void AddHandlers()
         {
-            closeButton.Click += new ButtonBase.ButtonEventHandler(onCloseButton_Click);
+            closeButton.Click += new EventHandler(onCloseButton_Click);
             
             saveButton.Click += (sender, e) =>
             {

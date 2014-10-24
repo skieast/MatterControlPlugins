@@ -357,10 +357,10 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                     Close();
                 }); 
             };
-            saveButton.Click += new ButtonBase.ButtonEventHandler(SubmitContactForm);
+            saveButton.Click += new EventHandler(SubmitContactForm);
         }
 
-        void SubmitContactForm(object sender, MouseEventArgs mouseEvent)
+        void SubmitContactForm(object sender, EventArgs mouseEvent)
         {
             UiThread.RunOnIdle(DoSubmitContactForm);
         }
