@@ -427,11 +427,11 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     asynchPlatingDatas.Add(newMeshInfo);
                     asynchMeshGroupTransforms.Add(ScaleRotateTranslate.Identity());
 
-                    PlatingHelper.CreateITraceableForMeshGroup(asynchPlatingDatas, asynchMeshGroups, newIndex, (double progress0To1, string processingState) =>
+                    PlatingHelper.CreateITraceableForMeshGroup(asynchPlatingDatas, asynchMeshGroups, newIndex, (double progress0To1, string processingState, out bool continueProcessing) =>
                     {
+                        continueProcessing = true;
                         int nextPercent = (int)((currentRatioDone + ratioPerMeshGroup * progress0To1) * 100);
                         backgroundWorker.ReportProgress(nextPercent);
-                        return true;
                     });
 
                     currentRatioDone += ratioPerMeshGroup;
