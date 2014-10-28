@@ -145,7 +145,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             viewArea.AnchorAll();
             {
                 meshViewerWidget = new MeshViewerWidget(viewerVolume, bedCenter, bedShape);
-                meshViewerWidget.AlwaysRenderBed = true;
+                meshViewerWidget.AllowBedRenderingWhenEmpty = true;
                 meshViewerWidget.AnchorAll();
             }
             viewArea.AddChild(meshViewerWidget);
