@@ -255,7 +255,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             {
                 this.word = text;
                 ResetWordLayoutSettings();
-                processingProgressControl.textWidget.Text = "Inserting Text";
+                processingProgressControl.ProcessType = "Inserting Text";
                 processingProgressControl.Visible = true;
                 processingProgressControl.PercentComplete = 0;
                 LockEditControls();
@@ -856,7 +856,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             {
                 partSelectButtonWasClicked = viewControls3D.partSelectButton.Checked;
 
-                processingProgressControl.textWidget.Text = "Saving Parts:";
+                processingProgressControl.ProcessType = "Saving Parts:";
                 processingProgressControl.Visible = true;
                 processingProgressControl.PercentComplete = 0;
                 LockEditControls();
