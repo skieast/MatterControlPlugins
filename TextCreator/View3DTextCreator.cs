@@ -299,7 +299,8 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             }
             IRayTraceable allObjects = BoundingVolumeHierarchy.CreateNewHierachy(mesheTraceables);
 
-            Ray ray = meshViewerWidget.TrackballTumbleWidget.LastScreenRay;
+            Vector2 meshViewerWidgetScreenPosition = meshViewerWidget.TransformFromParentSpace(this, screenPosition); 
+            Ray ray = meshViewerWidget.TrackballTumbleWidget.GetRayFromScreen(meshViewerWidgetScreenPosition);
             IntersectInfo info = allObjects.GetClosestIntersection(ray);
             if (info != null)
             {
@@ -357,7 +358,8 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
         {
             if (meshViewerWidget.TrackballTumbleWidget.TransformState == TrackBallController.MouseDownType.None && meshSelectInfo.downOnPart)
             {
-                Ray ray = meshViewerWidget.TrackballTumbleWidget.LastScreenRay;
+                Vector2 meshViewerWidgetScreenPosition = meshViewerWidget.TransformFromParentSpace(this, new Vector2(mouseEvent.X, mouseEvent.Y)); 
+                Ray ray = meshViewerWidget.TrackballTumbleWidget.GetRayFromScreen(meshViewerWidgetScreenPosition);
                 IntersectInfo info = meshSelectInfo.hitPlane.GetClosestIntersection(ray);
                 if (info != null)
                 {
