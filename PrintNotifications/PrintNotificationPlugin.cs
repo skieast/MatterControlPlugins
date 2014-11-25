@@ -7,6 +7,7 @@ using MatterHackers.MatterControl.DataStorage;
 using MatterHackers.MatterControl.PluginSystem;
 using MatterHackers.MatterControl.PrinterCommunication;
 using MatterHackers.MatterControl.VersionManagement;
+using MatterHackers.Agg.PlatformAbstract;
 
 namespace MatterHackers.MatterControl.Plugins.PrintNotifications
 {
@@ -83,8 +84,10 @@ namespace MatterHackers.MatterControl.Plugins.PrintNotifications
                 {
                     try
                     {
-                        string notificationSound = Path.Combine(ApplicationDataStorage.Instance.ApplicationStaticDataPath, "Sounds", "timer-done.wav");
-						(new System.Media.SoundPlayer(notificationSound)).Play();
+                        using (var mediaStream = StaticData.Instance.OpenSteam(Path.Combine("Sounds", "timer-done.wav")))
+                        {
+                            (new System.Media.SoundPlayer(mediaStream)).Play();
+                        }
                     }
                     catch
                     {
