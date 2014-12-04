@@ -50,6 +50,7 @@ using MatterHackers.RayTracer;
 using MatterHackers.RayTracer.Traceable;
 using MatterHackers.RenderOpenGl;
 using MatterHackers.VectorMath;
+using MatterHackers.Agg.PlatformAbstract;
 
 namespace MatterHackers.MatterControl.Plugins.TextCreator
 {
@@ -128,9 +129,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
         TypeFace boldTypeFace;
         public View3DTextCreator(Vector3 viewerVolume, Vector2 bedCenter, MeshViewerWidget.BedShape bedShape)
         {
-            string staticDataPath = DataStorage.ApplicationDataStorage.Instance.ApplicationStaticDataPath;
-            string fontPath = Path.Combine(staticDataPath, "Fonts", "LiberationSans-Bold.svg");
-            boldTypeFace = TypeFace.LoadSVG(fontPath);
+            boldTypeFace = TypeFace.LoadFrom(StaticData.Instance.ReadAllText(Path.Combine("Fonts", "LiberationSans-Bold.svg")));
 
             MeshGroupExtraData = new List<PlatingMeshGroupData>();
 
