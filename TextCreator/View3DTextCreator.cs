@@ -437,7 +437,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
                     currentRatioDone += ratioPerMeshGroup;
 
-                    PlatingHelper.PlaceMeshGroupOnBed(asynchMeshGroups, asynchMeshGroupTransforms, newIndex, false);
+                    PlatingHelper.PlaceMeshGroupOnBed(asynchMeshGroups, asynchMeshGroupTransforms, newIndex);
                 }
 
                 backgroundWorker.ReportProgress((i + 1) * 95 / currentText.Length);
