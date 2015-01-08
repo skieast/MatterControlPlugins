@@ -665,7 +665,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                             // we need to add the underline
                             CreateUnderline(MeshGroups, MeshGroupTransforms, MeshGroupExtraData);
                         }
-                        SelectedMeshGroupIndex = oldIndex;
+                        SelectedMeshGroupIndex = Math.Min(oldIndex, MeshGroups.Count-1);
                     };
 
                     expandWordOptions.CheckedStateChanged += (sender, e) =>
