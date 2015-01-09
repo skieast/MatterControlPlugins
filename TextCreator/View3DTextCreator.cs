@@ -34,7 +34,6 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 
-
 using MatterHackers.Agg;
 using MatterHackers.Agg.Font;
 using MatterHackers.PolygonMesh.Processors;
@@ -51,6 +50,7 @@ using MatterHackers.RayTracer.Traceable;
 using MatterHackers.RenderOpenGl;
 using MatterHackers.VectorMath;
 using MatterHackers.Agg.PlatformAbstract;
+using MatterHackers.Localizations;
 
 namespace MatterHackers.MatterControl.Plugins.TextCreator
 {
@@ -163,14 +163,14 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             {
                 FlowLayoutWidget editToolBar = new FlowLayoutWidget();
 
-                processingProgressControl = new ProgressControl("Finding Parts:", ActiveTheme.Instance.PrimaryTextColor, ActiveTheme.Instance.PrimaryAccentColor);
+                processingProgressControl = new ProgressControl("Finding Parts:".Localize(), ActiveTheme.Instance.PrimaryTextColor, ActiveTheme.Instance.PrimaryAccentColor);
                 processingProgressControl.VAnchor = Agg.UI.VAnchor.ParentCenter;
                 editToolBar.AddChild(processingProgressControl);
                 editToolBar.VAnchor |= Agg.UI.VAnchor.ParentCenter;
 
                 editPlateButtonsContainer = new FlowLayoutWidget();
 
-                MHTextEditWidget textToAddWidget = new MHTextEditWidget("", pixelWidth: 300, messageWhenEmptyAndNotSelected: "Enter Text Here");
+                MHTextEditWidget textToAddWidget = new MHTextEditWidget("", pixelWidth: 300, messageWhenEmptyAndNotSelected: "Enter Text Here".Localize());
                 textToAddWidget.VAnchor = VAnchor.ParentCenter;
                 textToAddWidget.Margin = new BorderDouble(5);
                 editPlateButtonsContainer.AddChild(textToAddWidget);
@@ -179,7 +179,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     InsertTextNow(textToAddWidget.Text);
                 };
 
-                Button insertTextButton = textImageButtonFactory.Generate("Insert");
+                Button insertTextButton = textImageButtonFactory.Generate("Insert".Localize());
                 editPlateButtonsContainer.AddChild(insertTextButton);
                 insertTextButton.Click += (sender, e) =>
                 {
@@ -226,7 +226,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             leftRightSpacer.HAnchor = HAnchor.ParentLeftRight;
             buttonBottomPanel.AddChild(leftRightSpacer);
 
-            closeButton = textImageButtonFactory.Generate("Close");
+            closeButton = textImageButtonFactory.Generate("Close".Localize());
             buttonBottomPanel.AddChild(closeButton);
 
             mainContainerTopToBottom.AddChild(buttonBottomPanel);
@@ -254,7 +254,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             {
                 this.word = text;
                 ResetWordLayoutSettings();
-                processingProgressControl.ProcessType = "Inserting Text";
+                processingProgressControl.ProcessType = "Inserting Text".Localize();
                 processingProgressControl.Visible = true;
                 processingProgressControl.PercentComplete = 0;
                 LockEditControls();
@@ -605,7 +605,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
                 // put in the word editing menu
                 {
-                    CheckBox expandWordOptions = expandMenuOptionFactory.GenerateCheckBoxButton("Word Edit", "icon_arrow_right_no_border_32x32.png", "icon_arrow_down_no_border_32x32.png");
+                    CheckBox expandWordOptions = expandMenuOptionFactory.GenerateCheckBoxButton("Word Edit".Localize(), "icon_arrow_right_no_border_32x32.png", "icon_arrow_down_no_border_32x32.png");
                     expandWordOptions.Margin = new BorderDouble(bottom: 2);
                     buttonRightPanel.AddChild(expandWordOptions);
 
@@ -614,7 +614,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     wordOptionContainer.Visible = false;
                     buttonRightPanel.AddChild(wordOptionContainer);
 
-                    spacingScrollBar = InsertUiForSlider(wordOptionContainer, "Spacing:", .5, 1);
+                    spacingScrollBar = InsertUiForSlider(wordOptionContainer, "Spacing:".Localize(), .5, 1);
                     {
                         spacingScrollBar.ValueChanged += (sender, e) =>
                         {
@@ -623,7 +623,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                         };
                     }
 
-                    sizeScrollBar = InsertUiForSlider(wordOptionContainer, "Size:", .3, 2);
+                    sizeScrollBar = InsertUiForSlider(wordOptionContainer, "Size:".Localize(), .3, 2);
                     {
                         sizeScrollBar.ValueChanged += (sender, e) =>
                         {
@@ -634,7 +634,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                         };
                     }
 
-                    heightScrollBar = InsertUiForSlider(wordOptionContainer, "Height:", .05, 1);
+                    heightScrollBar = InsertUiForSlider(wordOptionContainer, "Height:".Localize(), .05, 1);
                     {
                         heightScrollBar.ValueChanged += (sender, e) =>
                         {
@@ -642,8 +642,8 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                             RebuildUnderlineIfRequired();
                         };
                     }
-                       
-                    createUnderline = new CheckBox(new CheckBoxViewText("Underline", textColor: ActiveTheme.Instance.PrimaryTextColor));
+
+                    createUnderline = new CheckBox(new CheckBoxViewText("Underline".Localize(), textColor: ActiveTheme.Instance.PrimaryTextColor));
                     createUnderline.Checked = true;
                     createUnderline.Margin = new BorderDouble(10, 5);
                     createUnderline.HAnchor = HAnchor.ParentLeft;
@@ -687,9 +687,9 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                     letterOptionContainer.Visible = false;
                     buttonRightPanel.AddChild(letterOptionContainer);
 
-                    SolidSlider sizeScrollBar = InsertUiForSlider(letterOptionContainer, "Size:");
-                    SolidSlider heightScrollBar = InsertUiForSlider(letterOptionContainer, "Height:");
-                    SolidSlider rotationScrollBar = InsertUiForSlider(letterOptionContainer, "Rotation:");
+                    SolidSlider sizeScrollBar = InsertUiForSlider(letterOptionContainer, "Size:".Localize());
+                    SolidSlider heightScrollBar = InsertUiForSlider(letterOptionContainer, "Height:".Localize());
+                    SolidSlider rotationScrollBar = InsertUiForSlider(letterOptionContainer, "Rotation:".Localize());
 
                     expandLetterOptions.CheckedStateChanged += (sender, e) =>
                     {
@@ -701,11 +701,11 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
                 verticalSpacer.VAnchor = VAnchor.ParentBottomTop;
                 buttonRightPanel.AddChild(verticalSpacer);
 
-                saveButton = whiteButtonFactory.Generate("Save", centerText: true);
+                saveButton = whiteButtonFactory.Generate("Save".Localize(), centerText: true);
                 saveButton.Visible = false;
                 saveButton.Cursor = Cursors.Hand;
 
-                saveAndExitButton =  whiteButtonFactory.Generate("Save & Exit", centerText: true);
+                saveAndExitButton = whiteButtonFactory.Generate("Save & Exit".Localize(), centerText: true);
                 saveAndExitButton.Visible = false;
                 saveAndExitButton.Cursor = Cursors.Hand;
 
@@ -806,7 +806,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             GuiWidget horizontalSpacer = new GuiWidget();
             horizontalSpacer.HAnchor = HAnchor.ParentLeftRight;
 
-            TextWidget degreesLabel = new TextWidget("Degrees:", textColor: ActiveTheme.Instance.PrimaryTextColor);
+            TextWidget degreesLabel = new TextWidget("Degrees:".Localize(), textColor: ActiveTheme.Instance.PrimaryTextColor);
             degreesContainer.AddChild(degreesLabel);
             degreesContainer.AddChild(horizontalSpacer);
 
@@ -857,7 +857,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             {
                 partSelectButtonWasClicked = viewControls3D.partSelectButton.Checked;
 
-                processingProgressControl.ProcessType = "Saving Parts:";
+                processingProgressControl.ProcessType = "Saving Parts:".Localize();
                 processingProgressControl.Visible = true;
                 processingProgressControl.PercentComplete = 0;
                 LockEditControls();
@@ -912,11 +912,11 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             catch (System.UnauthorizedAccessException)
             {
                 //Do something special when unauthorized?
-                StyledMessageBox.ShowMessageBox(null, "Oops! Unable to save changes.", "Unable to save");
+                StyledMessageBox.ShowMessageBox(null, "Oops! Unable to save changes.".Localize(), "Unable to save".Localize());
             }
             catch
             {
-                StyledMessageBox.ShowMessageBox(null, "Oops! Unable to save changes.", "Unable to save");
+                StyledMessageBox.ShowMessageBox(null, "Oops! Unable to save changes.".Localize(), "Unable to save".Localize());
             }
         }
 
