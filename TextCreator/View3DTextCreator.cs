@@ -797,7 +797,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
 
         private void AddLetterControls(FlowLayoutWidget buttonPanel)
         {
-            textImageButtonFactory.FixedWidth = 44;
+			textImageButtonFactory.FixedWidth = 44 * TextWidget.GlobalPointSizeScaleRatio;
 
             FlowLayoutWidget degreesContainer = new FlowLayoutWidget(FlowDirection.LeftToRight);
             degreesContainer.HAnchor = HAnchor.ParentLeftRight;
@@ -944,7 +944,7 @@ namespace MatterHackers.MatterControl.Plugins.TextCreator
             }
 
             //Exit after save
-            Close();
+			UiThread.RunOnIdle(CloseOnIdle);
         }
 
         bool scaleQueueMenu_Click()
